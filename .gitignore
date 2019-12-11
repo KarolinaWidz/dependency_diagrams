@@ -12,8 +12,6 @@ __pycache__/
 *.so
 
 # Distribution / packaging
-graph
-graph.png
 .Python
 build/
 develop-eggs/
