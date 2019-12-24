@@ -1,13 +1,13 @@
 from tkinter import *
 from Graph import Graph
-#from PIL import ImageTk,Image
+from PIL import ImageTk, Image
 
 
 class gui:
     def __init__(self):
         self.window = Tk()
         self.window.title("Diagrams")
-        self.window.geometry('900x600')
+        self.window.geometry('600x900')
         self.selected1 = IntVar()
         self.selected2 = IntVar()
         self.selected3 = IntVar()
@@ -24,6 +24,12 @@ class gui:
     def show(self):
         if (self.selected1.get() == 1) & (self.selected2.get() == 0) & (self.selected3.get() == 0):
             Graph.files_dependency(self)
+            img = Image.open("graph.png")
+            img = img.resize((500,700), Image.ANTIALIAS)
+            tmp = ImageTk.PhotoImage(img)
+            label =Label(image=tmp)
+            label.image = tmp
+            label.place(x=20, y=30)
         elif (self.selected1.get() == 1) & (self.selected2.get() == 1) & (self.selected3.get() == 0):
             print("Files + methods")
         elif (self.selected1.get() == 1) & (self.selected2.get() == 1) & (self.selected3.get() == 1):

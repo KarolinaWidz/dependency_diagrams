@@ -22,4 +22,4 @@ class Graph:
             dependencies = FilesDependencies.is_file(file, names)
             for dependent_file in dependencies:
                 graph.edge(file, dependent_file)
-        graph.view()
+        #graph.view()
