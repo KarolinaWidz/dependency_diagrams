@@ -11,13 +11,15 @@ class FilesDependencies:
                 break
             for file_name in files:
                 if file_name[-3:] == '.py':
-                    file_names.append(file_name)
+                    fp = os.path.join(root, file_name)
+                    size = os.path.getsize(fp)
+                    file_names.append(file_name + " " + str(size))
 
         return file_names
 
     def is_file(self, files):
         file_names = []
-        file_depedencies = []
+        file_dependencies = []
 
         if os.path.isfile(self):
             with open(self) as file:
@@ -29,8 +31,7 @@ class FilesDependencies:
             for x in file_names:
                 words = x.split()
                 if words[1] + ".py" in files:
-                    file_size = os.path.getsize(words[1] + ".py")
-                    file_depedencies.append(words[1] + ".py\n" + str(file_size))
-            return file_depedencies
+                    file_dependencies.append(words[1] + ".py")
+            return file_dependencies
         else:
             return []
