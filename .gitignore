@@ -14,6 +14,8 @@ __pycache__/
 # Distribution / packaging
 graph
 graph.png
+graph2
+graph2.png
 .Python
 build/
 develop-eggs/
