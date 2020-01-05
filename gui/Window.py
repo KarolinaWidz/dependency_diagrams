@@ -23,7 +23,8 @@ class gui:
 
     def show(self):
         if (self.selected1.get() == 1) & (self.selected2.get() == 0) & (self.selected3.get() == 0):
-            Graph.files_dependency(self)
+            lala = Graph()
+            lala.files_dependency()
             img = Image.open("graph.png")
             img = img.resize((500,700), Image.ANTIALIAS)
             tmp = ImageTk.PhotoImage(img)

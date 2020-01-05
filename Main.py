@@ -1,5 +1,5 @@
 from Graph import Graph
-from gui.Test import gui
+from gui.Window import gui
 
 
 def main():

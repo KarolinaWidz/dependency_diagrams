@@ -18,6 +18,7 @@ class FilesDependencies:
         return file_names
 
     def is_file(self, files):
+        counter = 0
         file_names = []
         file_dependencies = []
 
@@ -32,6 +33,7 @@ class FilesDependencies:
                 words = x.split()
                 if words[1] + ".py" in files:
                     file_dependencies.append(words[1] + ".py")
-            return file_dependencies
+                    counter += 1
+            return file_dependencies, counter
         else:
-            return []
+            return [], 0
