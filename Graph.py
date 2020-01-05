@@ -1,7 +1,6 @@
 from graphviz import Digraph
-from FilesDependencies import FilesDependencies
-from FilesMethodsDependencies import FilesMethodsDependencies
-import os
+from dependencyFinders.FilesDependencies import FilesDependencies
+from dependencyFinders.FilesMethodsDependencies import FilesMethodsDependencies
 from Color import Color
 
 
@@ -24,7 +23,7 @@ class Graph:
             dependencies, counter = FilesDependencies.is_file(file, names)
             for dependent_file in dependencies:
                 graph.edge(file, dependent_file, *{str(counter)})
-        #graph.view()
+        graph.view()
 
     def files_methods_dependencies(self):
         file_names = FilesDependencies.find_files_in_directory(self)
@@ -55,4 +54,4 @@ class Graph:
             color.h += 0.1
             dependencies = FilesMethodsDependencies.find_dependencies(self,file,methods)
 
-        graph.view()
+        #graph.view()

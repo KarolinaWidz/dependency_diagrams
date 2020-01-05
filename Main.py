@@ -1,11 +1,12 @@
 from Graph import Graph
-from gui.Window import gui
+from gui.Window import Window
 
 
 def main():
-    test = gui()
+    test = Window()
     test.window.mainloop()
     tmp = Graph()
+    tmp.files_dependency()
     tmp.files_methods_dependencies()
 
 

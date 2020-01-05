@@ -3,7 +3,7 @@ from Graph import Graph
 from PIL import ImageTk, Image
 
 
-class gui:
+class Window:
     def __init__(self):
         self.window = Tk()
         self.window.title("Diagrams")

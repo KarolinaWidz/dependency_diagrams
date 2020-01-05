@@ -1,6 +1,4 @@
-import re
 import os
-from FilesDependencies import FilesDependencies
 
 
 class FilesMethodsDependencies:
