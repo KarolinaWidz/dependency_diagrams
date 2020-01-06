@@ -20,7 +20,8 @@ class Graph:
 
         for file, size in zip(names, sizes):
             graph.node(file, **{'width': str(float(size) / 400), 'height': str(float(size) / 400)})
-            dependencies, counter = FilesDependencies.is_file(file, names)
+            print("przekazane: ",file,names)
+            dependencies, counter = FilesDependencies.find_files_dependencies(file, names)
             for dependent_file in dependencies:
                 graph.edge(file, dependent_file, *{str(counter)})
         graph.view()

@@ -23,12 +23,12 @@ class Window:
 
     def show(self):
         if (self.selected1.get() == 1) & (self.selected2.get() == 0) & (self.selected3.get() == 0):
-            lala = Graph()
-            lala.files_dependency()
+            tmp = Graph()
+            tmp.files_dependency()
             img = Image.open("graph.png")
             img = img.resize((500,700), Image.ANTIALIAS)
             tmp = ImageTk.PhotoImage(img)
-            label =Label(image=tmp)
+            label = Label(image=tmp)
             label.image = tmp
             label.place(x=20, y=30)
         elif (self.selected1.get() == 1) & (self.selected2.get() == 1) & (self.selected3.get() == 0):
