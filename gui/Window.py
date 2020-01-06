@@ -7,10 +7,11 @@ class Window:
     def __init__(self):
         self.window = Tk()
         self.window.title("Diagrams")
-        self.window.geometry('600x900')
+        self.window.geometry('700x900')
         self.selected1 = IntVar()
         self.selected2 = IntVar()
         self.selected3 = IntVar()
+        self.selected4 = IntVar()
         self.file_button = Checkbutton(self.window, text="Files dependencies", bg='mistyrose', variable=self.selected1,
                                        onvalue=1, offvalue=0, command=self.show)
         self.file_button.grid(column=0, row=0)
@@ -20,6 +21,18 @@ class Window:
         self.package_button = Checkbutton(self.window, text="Packages dependencies", bg='yellowgreen',
                                           variable=self.selected3, onvalue=1, offvalue=0, command=self.show)
         self.package_button.grid(column=2, row=0)
+        self.method_files = Button(self.window, text = "Files with Methods dependencies", bg='khaki', command=self.show_files_method_dependencies)
+        self.method_files.grid(column=3,row=0)
+
+    def show_files_method_dependencies(self):
+        tmp = Graph()
+        tmp.files_methods_dependencies()
+        img = Image.open("graph2.png")
+        img = img.resize((500, 700), Image.ANTIALIAS)
+        tmp = ImageTk.PhotoImage(img)
+        label = Label(image=tmp)
+        label.image = tmp
+        label.place(x=20, y=30)
 
     def show(self):
         if (self.selected1.get() == 1) & (self.selected2.get() == 0) & (self.selected3.get() == 0):

@@ -1,5 +1,6 @@
 import os
 import re
+from dependencyFinders.FilesMethodsDependencies import FilesMethodsDependencies
 
 
 class FilesDependencies:
@@ -28,20 +29,12 @@ class FilesDependencies:
                     if x.startswith("from"):
                         file_names.append(x)
         else:
-            for root, dirs, files in os.walk(".", topdown=True):
-                cur_dir = os.path.join(root)
-                for d in dirs:
-                    if ("venv" not in d) and ("__pycache__" not in d) and (".git" not in d) and (".idea" not in d):
-                        cur_sub_dir = os.path.join(cur_dir, d)
-                        for f in os.listdir(cur_sub_dir):
-                            if f[-3:] == '.py':
-                                if f in self:
-                                    cur_file = os.path.join(cur_sub_dir, f)
-                                    with open(cur_file) as file:
-                                        for line in file:
-                                            re.sub('\s+', ' ', line).strip()
-                                            if line.startswith("from"):
-                                                file_names.append(line)
+            cur_file = FilesMethodsDependencies.open_files_from_directory(self, self)
+            with open(cur_file) as file:
+                for line in file:
+                    re.sub('\s+', ' ', line).strip()
+                    if line.startswith("from"):
+                        file_names.append(line)
 
         for x in file_names:
             words = x.split()

@@ -30,7 +30,7 @@ class Graph:
         names = []
         sizes = []
         graph = Digraph('graph2', format='png', filename='graph2',
-                        node_attr={'color': 'yellow', 'style': 'filled', 'shape': 'doublecircle'})
+                        node_attr={'color': 'khaki', 'style': 'filled', 'shape': 'doublecircle'})
         graph.attr(size='50')
         color = Color()
         for i in file_names:
@@ -39,19 +39,15 @@ class Graph:
             sizes.append(tmp[1])
 
         methods = FilesMethodsDependencies.get_all_methods(self, names)
-        #print(methods)
 
         for file, size in zip(names, sizes):
             same_function_dependencies = FilesMethodsDependencies.methods_in_file(self, file)[0]
-
+            different_function_dependencies, counter = FilesMethodsDependencies.find_dependencies(self, file,methods)
             graph.node(file, **{'width': str(float(size) / 400), 'height': str(float(size) / 400),
                                 'color': color.__str__()})
-
             for i in same_function_dependencies[file]:
-                graph.node(name=i, **{'shape': 'rectangle', 'color': color.__str__()})
-            #for i in same_function_dependencies[file]:
-                #graph.edge(file, i)
+                graph.edge(file,i)
+            for i in different_function_dependencies:
+                graph.edge(i,file)
             color.h += 0.1
-            dependencies = FilesMethodsDependencies.find_dependencies(self,file,methods)
-
-        graph.view()
+        #graph.view()
