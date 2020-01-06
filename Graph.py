@@ -20,11 +20,10 @@ class Graph:
 
         for file, size in zip(names, sizes):
             graph.node(file, **{'width': str(float(size) / 400), 'height': str(float(size) / 400)})
-            print("przekazane: ",file,names)
             dependencies, counter = FilesDependencies.find_files_dependencies(file, names)
             for dependent_file in dependencies:
                 graph.edge(file, dependent_file, *{str(counter)})
-        graph.view()
+        #graph.view()
 
     def files_methods_dependencies(self):
         file_names = FilesDependencies.find_files_in_directory(self)
@@ -40,7 +39,7 @@ class Graph:
             sizes.append(tmp[1])
 
         methods = FilesMethodsDependencies.get_all_methods(self, names)
-
+        #print(methods)
 
         for file, size in zip(names, sizes):
             same_function_dependencies = FilesMethodsDependencies.methods_in_file(self, file)[0]
@@ -55,4 +54,4 @@ class Graph:
             color.h += 0.1
             dependencies = FilesMethodsDependencies.find_dependencies(self,file,methods)
 
-        #graph.view()
+        graph.view()
