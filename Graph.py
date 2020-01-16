@@ -8,7 +8,6 @@ from Color import Color
 class Graph:
     def files_dependency(self,path):
         file_names = FilesDependencies.find_files_in_directory(self,path)
-        print(file_names)
         names = []
         sizes = []
         graph = Digraph('filesGraph', format='png', filename='filesGraph',
@@ -27,8 +26,8 @@ class Graph:
                 graph.edge(file, dependent_file, *{str(counter)})
         graph.view()
 
-    def files_with_modules(self):
-        file_names = FilesDependencies.find_files_in_directory(self)
+    def files_with_modules(self,path):
+        file_names = FilesDependencies.find_files_in_directory(self,path)
         names = []
         sizes = []
         edges = ModuleDependencies().get_relation_names()
@@ -50,7 +49,7 @@ class Graph:
 
             for file, size in zip(names, sizes):
                 files_graph.node(file, **{'width': str(float(size) / 400), 'height': str(float(size) / 400)})
-                dependencies, counter = FilesDependencies.find_files_dependencies(file, names)
+                dependencies, counter = FilesDependencies.find_files_dependencies(file,path, names)
                 for dependent_file in dependencies:
                     files_graph.edge(file, dependent_file, *{str(counter)})
         graph.view()
