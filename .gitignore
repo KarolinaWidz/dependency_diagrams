@@ -12,10 +12,16 @@ __pycache__/
 *.so
 
 # Distribution / packaging
-graph
-graph.png
-graph2
-graph2.png
+filesGraph
+filesGraph.png
+filesMethodsGraph
+filesMethodsGraph.png
+filesMethodsModulesGraph
+filesMethodsModulesGraph.png
+filesModulesGraph
+filesModulesGraph.png
+moduleGraph
+moduleGraph.png
 .Python
 build/
 develop-eggs/
