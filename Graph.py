@@ -1,6 +1,7 @@
 from graphviz import Digraph
 from dependencyFinders.FilesDependencies import FilesDependencies
 from dependencyFinders.FilesMethodsDependencies import FilesMethodsDependencies
+from dependencyFinders.ModuleDependencies import ModuleDependencies
 from Color import Color
 
 
@@ -51,3 +52,12 @@ class Graph:
                 graph.edge(i,file)
             color.h += 0.1
         #graph.view()
+
+        def module_dependency(self):
+            edges = ModuleDependencies().get_relation_names()
+            graph = Digraph('graph3', format='png', filename='graph2',
+                            node_attr={'color': 'khaki', 'style': 'filled', 'shape': 'doublecircle'})
+            for i in edges:
+                graph.edge(i[1][0], i[1][1], label=str(i[0]))
+        graph.view()
+
