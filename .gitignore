@@ -12,6 +12,7 @@ __pycache__/
 *.so
 
 # Distribution / packaging
+favicon.ico
 filesGraph
 filesGraph.png
 filesMethodsGraph

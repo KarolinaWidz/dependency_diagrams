@@ -6,7 +6,8 @@ from Graph import Graph
 class Window:
     def __init__(self):
         self.window = Tk()
-        self.window.title("Diagrams")
+        self.window.title("Dependency diagrams")
+        self.window.iconbitmap("favicon.ico")
         self.window.geometry('700x25')
         self.path = askdirectory(initialdir="..")
         print(self.path)
