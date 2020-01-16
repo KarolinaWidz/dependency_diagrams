@@ -51,7 +51,7 @@ class Window:
             print("Files + methods")
         elif (self.selected1.get() == 1) & (self.selected2.get() == 1) & (self.selected3.get() == 1):
             print("Files + methods + packages")
-            tmp.files_with_modules()
+            tmp.files_with_modules_with_methods()
             img = Image.open("filesMethodsModulesGraph.png")
             img = img.resize((500, 700), Image.ANTIALIAS)
             tmp = ImageTk.PhotoImage(img)
@@ -62,7 +62,7 @@ class Window:
             print("Methods + packages")
         elif (self.selected1.get() == 1) & (self.selected2.get() == 0) & (self.selected3.get() == 1):
             print("Files + packages")
-            tmp.files_with_modules_with_methods()
+            tmp.files_with_modules(self.path)
             img = Image.open("filesModulesGraph.png")
             img = img.resize((500, 700), Image.ANTIALIAS)
             tmp = ImageTk.PhotoImage(img)
