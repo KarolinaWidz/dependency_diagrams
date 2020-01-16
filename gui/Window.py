@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter.filedialog import askdirectory
 from Graph import Graph
 from PIL import ImageTk, Image
 
@@ -8,6 +9,8 @@ class Window:
         self.window = Tk()
         self.window.title("Diagrams")
         self.window.geometry('700x900')
+        self.path = askdirectory(initialdir="..")
+        print(self.path)
         self.selected1 = IntVar()
         self.selected2 = IntVar()
         self.selected3 = IntVar()
@@ -26,7 +29,7 @@ class Window:
 
     def show_files_method_dependencies(self):
         tmp = Graph()
-        tmp.files_methods_dependencies()
+        tmp.files_methods_dependencies(self.path)
         img = Image.open("filesMethodsGraph.png")
         img = img.resize((500, 700), Image.ANTIALIAS)
         tmp = ImageTk.PhotoImage(img)
@@ -37,7 +40,7 @@ class Window:
     def show(self):
         tmp = Graph()
         if (self.selected1.get() == 1) & (self.selected2.get() == 0) & (self.selected3.get() == 0):
-            tmp.files_dependency()
+            tmp.files_dependency(self.path)
             img = Image.open("filesGraph.png")
             img = img.resize((500,700), Image.ANTIALIAS)
             tmp = ImageTk.PhotoImage(img)
