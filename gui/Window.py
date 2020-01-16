@@ -1,14 +1,13 @@
 from tkinter import *
 from tkinter.filedialog import askdirectory
 from Graph import Graph
-from PIL import ImageTk, Image
 
 
 class Window:
     def __init__(self):
         self.window = Tk()
         self.window.title("Diagrams")
-        self.window.geometry('700x900')
+        self.window.geometry('700x25')
         self.path = askdirectory(initialdir="..")
         print(self.path)
         self.selected1 = IntVar()
@@ -30,45 +29,20 @@ class Window:
     def show_files_method_dependencies(self):
         tmp = Graph()
         tmp.files_methods_dependencies(self.path)
-        img = Image.open("filesMethodsGraph.png")
-        img = img.resize((500, 700), Image.ANTIALIAS)
-        tmp = ImageTk.PhotoImage(img)
-        label = Label(image=tmp)
-        label.image = tmp
-        label.place(x=20, y=30)
-
     def show(self):
         tmp = Graph()
         if (self.selected1.get() == 1) & (self.selected2.get() == 0) & (self.selected3.get() == 0):
             tmp.files_dependency(self.path)
-            img = Image.open("filesGraph.png")
-            img = img.resize((500,700), Image.ANTIALIAS)
-            tmp = ImageTk.PhotoImage(img)
-            label = Label(image=tmp)
-            label.image = tmp
-            label.place(x=20, y=30)
         elif (self.selected1.get() == 1) & (self.selected2.get() == 1) & (self.selected3.get() == 0):
             print("Files + methods")
         elif (self.selected1.get() == 1) & (self.selected2.get() == 1) & (self.selected3.get() == 1):
             print("Files + methods + packages")
             tmp.files_with_modules_with_methods()
-            img = Image.open("filesMethodsModulesGraph.png")
-            img = img.resize((500, 700), Image.ANTIALIAS)
-            tmp = ImageTk.PhotoImage(img)
-            label = Label(image=tmp)
-            label.image = tmp
-            label.place(x=20, y=30)
         elif (self.selected1.get() == 0) & (self.selected2.get() == 1) & (self.selected3.get() == 1):
             print("Methods + packages")
         elif (self.selected1.get() == 1) & (self.selected2.get() == 0) & (self.selected3.get() == 1):
             print("Files + packages")
             tmp.files_with_modules(self.path)
-            img = Image.open("filesModulesGraph.png")
-            img = img.resize((500, 700), Image.ANTIALIAS)
-            tmp = ImageTk.PhotoImage(img)
-            label = Label(image=tmp)
-            label.image = tmp
-            label.place(x=20, y=30)
         elif (self.selected1.get() == 0) & (self.selected2.get() == 1) & (self.selected3.get() == 0):
             print("Methods")
         elif (self.selected1.get() == 0) & (self.selected2.get() == 0) & (self.selected3.get() == 1):
