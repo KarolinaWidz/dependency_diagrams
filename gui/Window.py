@@ -27,7 +27,7 @@ class Window:
     def show_files_method_dependencies(self):
         tmp = Graph()
         tmp.files_methods_dependencies()
-        img = Image.open("graph2.png")
+        img = Image.open("filesMethodsGraph.png")
         img = img.resize((500, 700), Image.ANTIALIAS)
         tmp = ImageTk.PhotoImage(img)
         label = Label(image=tmp)
@@ -35,10 +35,10 @@ class Window:
         label.place(x=20, y=30)
 
     def show(self):
+        tmp = Graph()
         if (self.selected1.get() == 1) & (self.selected2.get() == 0) & (self.selected3.get() == 0):
-            tmp = Graph()
             tmp.files_dependency()
-            img = Image.open("graph.png")
+            img = Image.open("filesGraph.png")
             img = img.resize((500,700), Image.ANTIALIAS)
             tmp = ImageTk.PhotoImage(img)
             label = Label(image=tmp)
@@ -48,11 +48,26 @@ class Window:
             print("Files + methods")
         elif (self.selected1.get() == 1) & (self.selected2.get() == 1) & (self.selected3.get() == 1):
             print("Files + methods + packages")
+            tmp.files_with_modules()
+            img = Image.open("filesMethodsModulesGraph.png")
+            img = img.resize((500, 700), Image.ANTIALIAS)
+            tmp = ImageTk.PhotoImage(img)
+            label = Label(image=tmp)
+            label.image = tmp
+            label.place(x=20, y=30)
         elif (self.selected1.get() == 0) & (self.selected2.get() == 1) & (self.selected3.get() == 1):
             print("Methods + packages")
         elif (self.selected1.get() == 1) & (self.selected2.get() == 0) & (self.selected3.get() == 1):
             print("Files + packages")
+            tmp.files_with_modules_with_methods()
+            img = Image.open("filesModulesGraph.png")
+            img = img.resize((500, 700), Image.ANTIALIAS)
+            tmp = ImageTk.PhotoImage(img)
+            label = Label(image=tmp)
+            label.image = tmp
+            label.place(x=20, y=30)
         elif (self.selected1.get() == 0) & (self.selected2.get() == 1) & (self.selected3.get() == 0):
             print("Methods")
         elif (self.selected1.get() == 0) & (self.selected2.get() == 0) & (self.selected3.get() == 1):
             print("Packages")
+
