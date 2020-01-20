@@ -6,8 +6,8 @@ from Color import Color
 
 
 class Graph:
-    def files_dependency(self,path):
-        file_names = FilesDependencies.find_files_in_directory(self,path)
+    def files_dependency(self, path):
+        file_names = FilesDependencies.find_files_in_directory(self, path)
         names = []
         sizes = []
         graph = Digraph('filesGraph', format='pdf', filename='filesGraph',
@@ -21,13 +21,13 @@ class Graph:
 
         for file, size in zip(names, sizes):
             graph.node(file, **{'width': str(float(size) / 15000), 'height': str(float(size) / 15000)})
-            dependencies, counter = FilesDependencies.find_files_dependencies(file,path, names)
+            dependencies, counter = FilesDependencies.find_files_dependencies(file, path, names)
             for dependent_file in dependencies:
                 graph.edge(file, dependent_file, *{str(counter)})
         graph.view()
 
-    def files_with_modules(self,path):
-        file_names = FilesDependencies.find_files_in_directory(self,path)
+    def files_with_modules(self, path):
+        file_names = FilesDependencies.find_files_in_directory(self, path)
         names = []
         sizes = []
         edges = ModuleDependencies().get_relation_names(path)
@@ -49,11 +49,10 @@ class Graph:
 
             for file, size in zip(names, sizes):
                 files_graph.node(file, **{'width': str(float(size) / 15000), 'height': str(float(size) / 15000)})
-                dependencies, counter = FilesDependencies.find_files_dependencies(file,path, names)
+                dependencies, counter = FilesDependencies.find_files_dependencies(file, path, names)
                 for dependent_file in dependencies:
                     files_graph.edge(file, dependent_file, *{str(counter)})
         graph.view()
-
 
     def files_with_modules_with_methods(self, path):
         file_names = FilesDependencies.find_files_in_directory(self, path)
@@ -83,9 +82,8 @@ class Graph:
                     files_graph.edge(file, dependent_file, *{str(counter)})
         graph.view()
 
-
-    def files_methods_dependencies(self,path):
-        file_names = FilesDependencies.find_files_in_directory(self,path)
+    def files_methods_dependencies(self, path):
+        file_names = FilesDependencies.find_files_in_directory(self, path)
         names = []
         sizes = []
         graph = Digraph('filesMethodsGraph', format='pdf', filename='filesMethodsGraph',
@@ -97,23 +95,23 @@ class Graph:
             names.append(tmp[0])
             sizes.append(tmp[1])
 
-        methods = FilesMethodsDependencies.get_all_methods(self,path, names)
+        methods = FilesMethodsDependencies.get_all_methods(self, path, names)
 
         for file, size in zip(names, sizes):
-            same_function_dependencies = FilesMethodsDependencies.methods_in_file(self,path, file)[0]
-            different_function_dependencies, counter = FilesMethodsDependencies.find_dependencies(self,path, file,methods)
+            same_function_dependencies = FilesMethodsDependencies.methods_in_file(self, path, file)[0]
+            different_function_dependencies = FilesMethodsDependencies.find_dependencies(self, path, file, methods)
             graph.node(file, **{'width': str(float(size) / 15000), 'height': str(float(size) / 15000),
                                 'color': color.__str__()})
             for i in same_function_dependencies[file]:
-                graph.edge(file,i)
+                graph.edge(file, i)
             for i in different_function_dependencies:
-                graph.edge(i,file)
+                graph.edge(i, file)
             color.h += 0.1
         graph.view()
 
     def module_dependency(self, path='.'):
         edges = ModuleDependencies().get_relation_names(path)
-        graph = Digraph('moduleGraph', format='pdf', filename='moduleGraph',
+        graph = Digraph('moduleGraph', format='png', filename='moduleGraph',
                         node_attr={'color': 'yellowgreen', 'style': 'filled', 'shape': 'doublecircle'})
         for i in edges:
             graph.edge(i[1][0], i[1][1], label=str(i[0]))

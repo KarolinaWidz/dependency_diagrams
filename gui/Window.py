@@ -23,7 +23,8 @@ class Window:
         self.package_button = Checkbutton(self.window, text="Packages dependencies", bg='yellowgreen',
                                           variable=self.selected3, onvalue=1, offvalue=0, command=self.show)
         self.package_button.grid(column=2, row=0)
-        self.method_files = Button(self.window, text = "Files with Methods dependencies", bg='khaki', command=self.show_files_method_dependencies)
+        self.method_files = Button(self.window, text = "Files with Methods dependencies", bg='khaki',
+                                   command=self.show_files_method_dependencies)
         self.method_files.grid(column=3,row=0)
 
     def show_files_method_dependencies(self):
