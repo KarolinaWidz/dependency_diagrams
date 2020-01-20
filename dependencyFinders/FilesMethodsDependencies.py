@@ -56,6 +56,7 @@ class FilesMethodsDependencies:
         tmp = []
         cur_path = file_path + "/" + file_arg
         if os.path.isfile(cur_path):
+            counter = 0
             with open(cur_path) as file:
                 for line in file:
                     line = line.strip()

@@ -10,7 +10,7 @@ class Graph:
         file_names = FilesDependencies.find_files_in_directory(self,path)
         names = []
         sizes = []
-        graph = Digraph('filesGraph', format='png', filename='filesGraph',
+        graph = Digraph('filesGraph', format='pdf', filename='filesGraph',
                         node_attr={'color': 'mistyrose', 'style': 'filled', 'shape': 'circle'})
         graph.attr(size='50')
 
@@ -20,7 +20,7 @@ class Graph:
             sizes.append(tmp[1])
 
         for file, size in zip(names, sizes):
-            graph.node(file, **{'width': str(float(size) / 400), 'height': str(float(size) / 400)})
+            graph.node(file, **{'width': str(float(size) / 15000), 'height': str(float(size) / 15000)})
             dependencies, counter = FilesDependencies.find_files_dependencies(file,path, names)
             for dependent_file in dependencies:
                 graph.edge(file, dependent_file, *{str(counter)})
@@ -30,8 +30,8 @@ class Graph:
         file_names = FilesDependencies.find_files_in_directory(self,path)
         names = []
         sizes = []
-        edges = ModuleDependencies().get_relation_names()
-        graph = Digraph('filesModulesGraph', format='png', filename='filesModulesGraph',
+        edges = ModuleDependencies().get_relation_names(path)
+        graph = Digraph('filesModulesGraph', format='pdf', filename='filesModulesGraph',
                         node_attr={'style': 'filled', 'shape': 'circle'})
         graph.attr(size='50')
 
@@ -48,22 +48,23 @@ class Graph:
                 sizes.append(tmp[1])
 
             for file, size in zip(names, sizes):
-                files_graph.node(file, **{'width': str(float(size) / 400), 'height': str(float(size) / 400)})
+                files_graph.node(file, **{'width': str(float(size) / 15000), 'height': str(float(size) / 15000)})
                 dependencies, counter = FilesDependencies.find_files_dependencies(file,path, names)
                 for dependent_file in dependencies:
                     files_graph.edge(file, dependent_file, *{str(counter)})
         graph.view()
 
-    def files_with_modules_with_methods(self):
-        file_names = FilesDependencies.find_files_in_directory(self)
+
+    def files_with_modules_with_methods(self, path):
+        file_names = FilesDependencies.find_files_in_directory(self, path)
         names = []
         sizes = []
-        edges = ModuleDependencies().get_relation_names()
-        graph = Digraph('filesMethodsModulesGraph', format='png', filename='filesMethodsModulesGraph',
+        edges = ModuleDependencies().get_relation_names(path)
+        graph = Digraph('filesModulesGraph', format='pdf', filename='filesModulesGraph',
                         node_attr={'style': 'filled', 'shape': 'circle'})
         graph.attr(size='50')
 
-        with graph.subgraph(name='modules') as modules_graph:
+        with graph.subgraph(name='packages') as modules_graph:
             modules_graph.node_attr.update(style='filled', color='yellowgreen')
             for i in edges:
                 modules_graph.edge(i[1][0], i[1][1], label=str(i[0]))
@@ -76,8 +77,8 @@ class Graph:
                 sizes.append(tmp[1])
 
             for file, size in zip(names, sizes):
-                files_graph.node(file, **{'width': str(float(size) / 400), 'height': str(float(size) / 400)})
-                dependencies, counter = FilesDependencies.find_files_dependencies(file, names)
+                files_graph.node(file, **{'width': str(float(size) / 15000), 'height': str(float(size) / 15000)})
+                dependencies, counter = FilesDependencies.find_files_dependencies(file, path, names)
                 for dependent_file in dependencies:
                     files_graph.edge(file, dependent_file, *{str(counter)})
         graph.view()
@@ -87,7 +88,7 @@ class Graph:
         file_names = FilesDependencies.find_files_in_directory(self,path)
         names = []
         sizes = []
-        graph = Digraph('filesMethodsGraph', format='png', filename='filesMethodsGraph',
+        graph = Digraph('filesMethodsGraph', format='pdf', filename='filesMethodsGraph',
                         node_attr={'color': 'khaki', 'style': 'filled', 'shape': 'doublecircle'})
         graph.attr(size='50')
         color = Color()
@@ -101,7 +102,7 @@ class Graph:
         for file, size in zip(names, sizes):
             same_function_dependencies = FilesMethodsDependencies.methods_in_file(self,path, file)[0]
             different_function_dependencies, counter = FilesMethodsDependencies.find_dependencies(self,path, file,methods)
-            graph.node(file, **{'width': str(float(size) / 400), 'height': str(float(size) / 400),
+            graph.node(file, **{'width': str(float(size) / 15000), 'height': str(float(size) / 15000),
                                 'color': color.__str__()})
             for i in same_function_dependencies[file]:
                 graph.edge(file,i)
@@ -112,7 +113,7 @@ class Graph:
 
     def module_dependency(self, path='.'):
         edges = ModuleDependencies().get_relation_names(path)
-        graph = Digraph('moduleGraph', format='png', filename='moduleGraph',
+        graph = Digraph('moduleGraph', format='pdf', filename='moduleGraph',
                         node_attr={'color': 'yellowgreen', 'style': 'filled', 'shape': 'doublecircle'})
         for i in edges:
             graph.edge(i[1][0], i[1][1], label=str(i[0]))

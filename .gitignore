@@ -12,17 +12,17 @@ __pycache__/
 *.so
 
 # Distribution / packaging
-favicon.ico
+
 filesGraph
-filesGraph.png
+filesGraph.pdf
 filesMethodsGraph
-filesMethodsGraph.png
+filesMethodsGraph.pdf
 filesMethodsModulesGraph
-filesMethodsModulesGraph.png
+filesMethodsModulesGraph.pdf
 filesModulesGraph
-filesModulesGraph.png
+filesModulesGraph.pdf
 moduleGraph
-moduleGraph.png
+moduleGraph.pdf
 .Python
 build/
 develop-eggs/
