@@ -1,5 +1,4 @@
 from tkinter import *
-from tkinter import ttk
 from tkinter.filedialog import askdirectory
 from tkinter.messagebox import showerror
 
@@ -10,6 +9,8 @@ class Window:
     def __init__(self):
         self.window = Tk()
         self.window.title("Dependency diagrams")
+        self.window.attributes('-topmost', True)
+        self.window.update()
         self.window.geometry('700x25')
         self.path = askdirectory(initialdir="..")
         self.selected1 = IntVar()
