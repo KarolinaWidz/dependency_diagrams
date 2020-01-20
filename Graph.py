@@ -1,3 +1,5 @@
+import tempfile
+
 from graphviz import Digraph
 from dependencyFinders.FilesDependencies import FilesDependencies
 from dependencyFinders.FilesMethodsDependencies import FilesMethodsDependencies
@@ -24,7 +26,11 @@ class Graph:
             dependencies, counter = FilesDependencies.find_files_dependencies(file, path, names)
             for dependent_file in dependencies:
                 graph.edge(file, dependent_file, *{str(counter)})
-        graph.view()
+        try:
+            graph.view(tempfile.mktemp('.filesGraph'))
+        except Exception:
+            from gui.Window import Window
+            Window.show_error(Window)
 
     def files_with_modules(self, path):
         file_names = FilesDependencies.find_files_in_directory(self, path)
@@ -52,7 +58,11 @@ class Graph:
                 dependencies, counter = FilesDependencies.find_files_dependencies(file, path, names)
                 for dependent_file in dependencies:
                     files_graph.edge(file, dependent_file, *{str(counter)})
-        graph.view()
+        try:
+            graph.view(tempfile.mktemp('.filesModulesGraph'))
+        except Exception:
+            from gui.Window import Window
+            Window.show_error(Window)
 
     def files_with_modules_with_methods(self, path):
         file_names = FilesDependencies.find_files_in_directory(self, path)
@@ -80,7 +90,11 @@ class Graph:
                 dependencies, counter = FilesDependencies.find_files_dependencies(file, path, names)
                 for dependent_file in dependencies:
                     files_graph.edge(file, dependent_file, *{str(counter)})
-        graph.view()
+        try:
+            graph.view(tempfile.mktemp('.filesModulesGraph'))
+        except Exception:
+            from gui.Window import Window
+            Window.show_error(Window)
 
     def files_methods_dependencies(self, path):
         file_names = FilesDependencies.find_files_in_directory(self, path)
@@ -107,7 +121,11 @@ class Graph:
             for i in different_function_dependencies:
                 graph.edge(i, file)
             color.h += 0.1
-        graph.view()
+        try:
+            graph.view(tempfile.mktemp('.filesMethodsGraph'))
+        except Exception:
+            from gui.Window import Window
+            Window.show_error(Window)
 
     def module_dependency(self, path='.'):
         edges = ModuleDependencies().get_relation_names(path)
@@ -115,4 +133,8 @@ class Graph:
                         node_attr={'color': 'yellowgreen', 'style': 'filled', 'shape': 'doublecircle'})
         for i in edges:
             graph.edge(i[1][0], i[1][1], label=str(i[0]))
-        graph.view()
+        try:
+            graph.view(tempfile.mktemp('.moduleGraph'))
+        except Exception:
+            from gui.Window import Window
+            Window.show_error(Window)

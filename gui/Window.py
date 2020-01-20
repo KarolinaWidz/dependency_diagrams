@@ -6,6 +6,7 @@ from Graph import Graph
 
 
 class Window:
+
     def __init__(self):
         self.window = Tk()
         self.window.title("Dependency diagrams")
@@ -26,16 +27,20 @@ class Window:
         self.package_button = Checkbutton(self.window, text="Packages dependencies", bg='yellowgreen',
                                           variable=self.selected3, onvalue=1, offvalue=0, command=self.show)
         self.package_button.grid(column=2, row=0)
-        self.method_files = Button(self.window, text = "Files with Methods dependencies", bg='khaki',
+        self.method_files = Button(self.window, text="Files with Methods dependencies", bg='khaki',
                                    command=self.show_files_method_dependencies)
-        self.method_files.grid(column=3,row=0)
+        self.method_files.grid(column=3, row=0)
         if self.path is "":
-            showerror("ERROR", "YOU DIDN'T CHOOSE A DIR")
+            showerror("ERROR", "You didn't choose a dir")
             self.window.destroy()
+
+    def show_error(self):
+        showerror("ERROR", "Graphviz cannot generate the graph")
 
     def show_files_method_dependencies(self):
         tmp = Graph()
         tmp.files_methods_dependencies(self.path)
+
     def show(self):
         tmp = Graph()
         if (self.selected1.get() == 1) & (self.selected2.get() == 0) & (self.selected3.get() == 0):
@@ -55,4 +60,3 @@ class Window:
         elif (self.selected1.get() == 0) & (self.selected2.get() == 0) & (self.selected3.get() == 1):
             tmp.module_dependency(self.path)
             print("Packages")
-
