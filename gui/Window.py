@@ -1,5 +1,8 @@
 from tkinter import *
+from tkinter import ttk
 from tkinter.filedialog import askdirectory
+from tkinter.messagebox import showerror
+
 from Graph import Graph
 
 
@@ -9,7 +12,6 @@ class Window:
         self.window.title("Dependency diagrams")
         self.window.geometry('700x25')
         self.path = askdirectory(initialdir="..")
-        print(self.path)
         self.selected1 = IntVar()
         self.selected2 = IntVar()
         self.selected3 = IntVar()
@@ -26,6 +28,9 @@ class Window:
         self.method_files = Button(self.window, text = "Files with Methods dependencies", bg='khaki',
                                    command=self.show_files_method_dependencies)
         self.method_files.grid(column=3,row=0)
+        if self.path is "":
+            showerror("ERROR", "YOU DIDN'T CHOOSE A DIR")
+            self.window.destroy()
 
     def show_files_method_dependencies(self):
         tmp = Graph()
