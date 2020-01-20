@@ -36,7 +36,9 @@ class ModuleDependencies:
                                     continue
                             #
                             elif line.startswith('def'):
-                                tmp.append(tuple((line.split(' ')[1].split('(')[0], dir_name.split('/')[-1])))
+                                if len(line.split(' ')) >= 2 and len(line.split(' ')[1].split('(')) >= 1 \
+                                                             and len(dir_name.split('/')) >= 1:
+                                 tmp.append(tuple((line.split(' ')[1].split('(')[0], dir_name.split('/')[-1])))
         tmp2 = []
         for i in tmp:
             tmp2.append(tuple((tmp.count(i), i)))
