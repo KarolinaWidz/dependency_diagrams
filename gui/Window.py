@@ -7,7 +7,7 @@ class Window:
     def __init__(self):
         self.window = Tk()
         self.window.title("Dependency diagrams")
-        self.window.iconbitmap("favicon.ico")
+        # self.window.iconbitmap("favicon.ico")
         self.window.geometry('700x25')
         self.path = askdirectory(initialdir="..")
         print(self.path)
@@ -47,5 +47,6 @@ class Window:
         elif (self.selected1.get() == 0) & (self.selected2.get() == 1) & (self.selected3.get() == 0):
             print("Methods")
         elif (self.selected1.get() == 0) & (self.selected2.get() == 0) & (self.selected3.get() == 1):
+            tmp.module_dependency(self.path)
             print("Packages")
 

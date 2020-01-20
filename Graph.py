@@ -110,11 +110,10 @@ class Graph:
             color.h += 0.1
         graph.view()
 
-    def module_dependency(self):
-        edges = ModuleDependencies().get_relation_names()
+    def module_dependency(self, path='.'):
+        edges = ModuleDependencies().get_relation_names(path)
         graph = Digraph('moduleGraph', format='png', filename='moduleGraph',
                         node_attr={'color': 'yellowgreen', 'style': 'filled', 'shape': 'doublecircle'})
         for i in edges:
             graph.edge(i[1][0], i[1][1], label=str(i[0]))
         graph.view()
-

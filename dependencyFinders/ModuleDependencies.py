@@ -3,45 +3,40 @@ import os
 
 class ModuleDependencies:
 
-    # zwraca listę wszystkich katalogów w folderze
-    def get_directory_names(self):
-        list_of_folders = next(os.walk('.'))[1]
-        list_of_folders = [x for x in list_of_folders if x not in ['.idea', 'venv', '__pycache__', '.git']]
+    def get_directory_names(self, path='.'):
+        list_of_folders = next(os.walk(path))[1]
+        list_of_folders = [path + '/' + x for x in list_of_folders if x not in ['.idea', 'venv', '__pycache__', '.git']]
         return list_of_folders
 
-    def get_current_filenames_in_directory(self, name_of_curent_directory):
+    def get_current_filenames_in_directory(self, name_of_current_directory):
         file_names = []
-        path = name_of_curent_directory
-        for root, dirs, files in os.walk(path):
+        for root, dirs, files in os.walk(name_of_current_directory):
             for file_name in files:
                 if file_name[-3:] == '.py':
-                    # potrzebuje całej ścieżki do pliku
-                    file_names.append(name_of_curent_directory + '/' + file_name)
+                    file_names.append(name_of_current_directory + '/' + file_name)
         return file_names
 
-    def get_relation_names(self):
-        list_nodes = ModuleDependencies().get_directory_names()
+    def get_relation_names(self, path='.'):
+        list_nodes = ModuleDependencies().get_directory_names(path)
         tmp = []
-        # iteruje po folderach
-        for current_node in list_nodes:
-            current_filenames_in_directory_list = ModuleDependencies().get_current_filenames_in_directory(current_node)
-            # iteruje po plikach w folderze
-            for current_file in current_filenames_in_directory_list:
+        for dir_name in list_nodes:    # iteruje po folderach
+            current_filenames_in_directory_list = ModuleDependencies().get_current_filenames_in_directory(dir_name)
+            for current_file in current_filenames_in_directory_list:    # iteruje po plikach w folderze
                 if os.path.isfile(current_file):
                     with open(current_file) as file:
                         for line in file:
                             line = line.strip()
                             if line.startswith("from "):
-                                file_package = line.split(' ')[1].split('.')[0]  # wycinam nazwę modułu z linii
+                                file_package = line.split(' ')[1].split('.')[0]
                                 if file_package in list_nodes:
-                                    if file_package == current_node:
+                                    if file_package == dir_name:
                                         continue
-                                    tmp.append(tuple((current_node, file_package)))
+                                    tmp.append(tuple((dir_name, file_package)))
                                 else:
                                     continue
                             #
                             elif line.startswith('def'):
-                                tmp.append(tuple((line.split(' ')[1].split('(')[0], current_file.split('/')[0])))
+                                tmp.append(tuple((line.split(' ')[1].split('(')[0], dir_name.split('/')[-1])))
         tmp2 = []
         for i in tmp:
             tmp2.append(tuple((tmp.count(i), i)))
