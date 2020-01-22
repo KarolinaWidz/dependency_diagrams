@@ -24,6 +24,8 @@ filesModulesGraph.pdf
 moduleGraph
 moduleGraph.pdf
 .Python
+.idea/misc.xml
+.idea/dependency_diagrams.iml
 build/
 develop-eggs/
 dist/

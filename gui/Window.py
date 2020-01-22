@@ -3,7 +3,7 @@ from tkinter.filedialog import askdirectory
 from tkinter.messagebox import showerror
 
 from Graph import Graph
-
+from Consolidation import Consolidation
 
 class Window:
 
@@ -47,18 +47,21 @@ class Window:
 
     def show(self):
         tmp = Graph()
+        consolidation = Consolidation()
         if (self.selected1.get() == 1) & (self.selected2.get() == 0) & (self.selected3.get() == 0) & (self.selected5.get() == 0):
             tmp.files_dependency(self.path)
         elif (self.selected1.get() == 1) & (self.selected2.get() == 1) & (self.selected3.get() == 0) & (self.selected5.get() == 0) :
             print("Files + methods")
+            consolidation.files_with_methods(self.path)
         elif (self.selected1.get() == 1) & (self.selected2.get() == 1) & (self.selected3.get() == 1) & (self.selected5.get() == 0):
             print("Files + methods + packages")
-            tmp.files_with_modules_with_methods(self.path)
+            consolidation.files_with_modules_with_methods(self.path)
         elif (self.selected1.get() == 0) & (self.selected2.get() == 1) & (self.selected3.get() == 1) & (self.selected5.get() == 0):
             print("Methods + packages")
+            consolidation.modules_with_methods(self.path)
         elif (self.selected1.get() == 1) & (self.selected2.get() == 0) & (self.selected3.get() == 1) & (self.selected5.get() == 0):
             print("Files + packages")
-            tmp.files_with_modules(self.path)
+            consolidation.files_with_modules(self.path)
         elif (self.selected1.get() == 0) & (self.selected2.get() == 1) & (self.selected3.get() == 0) & (self.selected5.get() == 0):
             tmp.methods_dependencies(self.path)
             print("Methods")
