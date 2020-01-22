@@ -28,7 +28,7 @@ class Window:
         self.package_button = Checkbutton(self.window, text="Packages dependencies", bg='yellowgreen',
                                           variable=self.selected3, onvalue=1, offvalue=0, command=self.show)
         self.package_button.grid(column=2, row=0)
-        self.method_files = Button(self.window, text="Files with Methods dependencies", bg='khaki',
+        self.method_files = Button(self.window, text="Files with definition dependencies", bg='khaki',
                                    command=self.show_files_method_dependencies)
         self.method_files.grid(column=4, row=0)
         self.method_button = Checkbutton(self.window, text="Cyclomatic Complexity", bg='bisque',
@@ -43,7 +43,7 @@ class Window:
 
     def show_files_method_dependencies(self):
         tmp = Graph()
-        tmp.files_methods_dependencies(self.path)
+        tmp.files_with_definitons_dependencies(self.path)
 
     def show(self):
         tmp = Graph()

@@ -1,6 +1,6 @@
 import os
 import re
-from dependencyFinders.FilesMethodsDependencies import FilesMethodsDependencies
+from dependencyFinders.FilesWithDefinitionsDependencies import FilesWithDefinitionsDependencies
 
 
 class FilesDependencies:
@@ -29,7 +29,7 @@ class FilesDependencies:
                     if x.startswith("from"):
                         file_names.append(x)
         else:
-            cur_file = FilesMethodsDependencies.open_files_from_directory(self, file_path, self)
+            cur_file = FilesWithDefinitionsDependencies.open_files_from_directory(self, file_path, self)
             with open(cur_file) as file:
                 for line in file:
                     re.sub('\s+', ' ', line).strip()
