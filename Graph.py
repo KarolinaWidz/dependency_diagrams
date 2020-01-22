@@ -40,6 +40,7 @@ class Graph:
 
         function_connections = []
         function_connections_tmp = MethodsDependencies().methods_dependency(path)
+        function_names = MethodsDependencies().methods_list_from_directory(path)
 
         for element in function_connections_tmp:
             if element != []:
@@ -48,6 +49,8 @@ class Graph:
         graph = Digraph('methodGraph', format='pdf', filename='methodGraph',
                         node_attr={'color': 'skyblue', 'style': 'filled', 'shape': 'doublecircle'})
         graph.attr(size='6,6', labelloc='b', label='Version: \n' + HashCommit.get_commit_hash(path))
+        for name in function_names:
+            graph.node(name)
 
         for edge in function_connections:
             for x in edge:
