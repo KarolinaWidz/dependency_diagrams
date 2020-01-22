@@ -1,6 +1,6 @@
 import os
 import re
-from dependencyFinders.FilesMethodsDependencies import FilesMethodsDependencies
+from dependencyFinders.FilesWithDefinitionsDependencies import FilesWithDefinitionsDependencies
 
 
 class FilesDependencies:
@@ -24,20 +24,18 @@ class FilesDependencies:
         cur_path = file_path+"/"+self
         if os.path.isfile(cur_path):
             with open(cur_path) as file:
-                for x in file:
-                    re.sub('\s+', ' ', x).strip()
-                    if x.startswith("from"):
-                        file_names.append(x)
+                for line in file:
+                    if line.startswith("from"):
+                        file_names.append(line)
         else:
-            cur_file = FilesMethodsDependencies.open_files_from_directory(self, file_path, self)
+            cur_file = FilesWithDefinitionsDependencies.open_files_from_directory(self, file_path, self)
             with open(cur_file) as file:
                 for line in file:
-                    re.sub('\s+', ' ', line).strip()
                     if line.startswith("from"):
                         file_names.append(line)
 
-        for x in file_names:
-            words = x.split()
+        for line in file_names:
+            words = line.split()
             for file in files_in_directory:
                 if (words[3] + ".py") == file:
                     file_dependencies.append(file)

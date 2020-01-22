@@ -1,7 +1,7 @@
 import os
 
 
-class FilesMethodsDependencies:
+class FilesWithDefinitionsDependencies:
     def open_file(self, file_path, file_name):
         tmp = []
         cur_path = file_path + "/" + file_name
@@ -9,6 +9,7 @@ class FilesMethodsDependencies:
             for line in file:
                 line = line.strip()
                 if line.startswith("def"):
+                    line = line.split(' ')[1].split("(")[0]
                     tmp.append(line)
         return tmp
 
@@ -31,15 +32,16 @@ class FilesMethodsDependencies:
         all_methods = []
         cur_path = file_path + "/" + file_name
         if os.path.isfile(cur_path):
-            tmp = FilesMethodsDependencies.open_file(self, file_path, file_name)
+            tmp = FilesWithDefinitionsDependencies.open_file(self, file_path, file_name)
             for i in tmp:
                 all_methods.append(i)
         else:
-            cur_file = FilesMethodsDependencies.open_files_from_directory(self, file_path, file_name)
+            cur_file = FilesWithDefinitionsDependencies.open_files_from_directory(self, file_path, file_name)
             with open(cur_file) as file:
                 for line in file:
                     line = line.strip()
-                    if line.startswith("def"):
+                    if line.startswith("def "):
+                        line= line.split(' ')[1].split("(")[0]
                         tmp.append(line)
                         all_methods.append(line)
 
@@ -49,7 +51,7 @@ class FilesMethodsDependencies:
     def get_all_methods(self, file_path, files):
         tmp = []
         for file in files:
-            methods = FilesMethodsDependencies.methods_in_file(self, file_path, file)[1]
+            methods = FilesWithDefinitionsDependencies.methods_in_file(self, file_path, file)[1]
             for i in methods:
                 tmp.append(i)
         return tmp
@@ -68,7 +70,7 @@ class FilesMethodsDependencies:
                             if k + "(" in line:
                                 tmp.append(met)
         else:
-            cur_file = FilesMethodsDependencies.open_files_from_directory(self, file_path, file_arg)
+            cur_file = FilesWithDefinitionsDependencies.open_files_from_directory(self, file_path, file_arg)
             with open(cur_file) as file:
                 for line in file:
                     line = line.strip()
