@@ -76,7 +76,7 @@ class Graph:
         file_names = FilesDependencies.find_files_in_directory(self, path)
         names = []
         sizes = []
-        graph = Digraph('filesMethodsGraph', strict=True, format='pdf', filename='filesMethodsGraph',
+        graph = Digraph('filesMethodsDefinitionsGraph', strict=True, format='pdf', filename='filesMethodsDefinitionsGraph',
                         node_attr={'color': 'khaki', 'style': 'filled', 'shape': 'doublecircle'})
         graph.attr(size='50', labelloc='b', label='Version: \n' + HashCommit.get_commit_hash(path))
         color = Color()
@@ -93,72 +93,7 @@ class Graph:
                 graph.edge(i, file)
             color.h += 0.05
         try:
-            graph.view(tempfile.mktemp('.filesMethodsGraph'))
-        except Exception:
-            from gui.Window import Window
-            Window.show_error(Window)
-
-    #CONSOLIDATION
-    def files_with_modules(self, path):
-        file_names = FilesDependencies.find_files_in_directory(self, path)
-        names = []
-        sizes = []
-        edges = ModuleDependencies().get_relation_names(path)
-        graph = Digraph('filesModulesGraph', format='pdf', filename='filesModulesGraph',
-                        node_attr={'style': 'filled', 'shape': 'circle'})
-        graph.attr(size='50', labelloc='b', label='Version: \n' + HashCommit.get_commit_hash(path))
-
-        with graph.subgraph(name='packages') as modules_graph:
-            modules_graph.node_attr.update(style='filled', color='yellowgreen')
-            for i in edges:
-                modules_graph.edge(i[1][0], i[1][1], label=str(i[0]))
-
-        with graph.subgraph(name='files') as files_graph:
-            files_graph.node_attr.update(style='filled', color='mistyrose')
-            for i in file_names:
-                tmp = i.split(" ")
-                names.append(tmp[0])
-                sizes.append(tmp[1])
-
-            for file, size in zip(names, sizes):
-                files_graph.node(file, **{'width': str(float(size) / 15000), 'height': str(float(size) / 15000)})
-                dependencies, counter = FilesDependencies.find_files_dependencies(file, path, names)
-                for dependent_file in dependencies:
-                    files_graph.edge(file, dependent_file, *{str(counter)})
-        try:
-            graph.view(tempfile.mktemp('.filesModulesGraph'))
-        except Exception:
-            from gui.Window import Window
-            Window.show_error(Window)
-
-    def files_with_modules_with_methods(self, path):
-        file_names = FilesDependencies.find_files_in_directory(self, path)
-        names = []
-        sizes = []
-        edges = ModuleDependencies().get_relation_names(path)
-        graph = Digraph('filesModulesGraph', format='pdf', filename='filesModulesGraph',
-                        node_attr={'style': 'filled', 'shape': 'circle'})
-        graph.attr(size='50', labelloc = 'b', label = 'Version: \n' + HashCommit().get_commit_hash(path))
-
-        with graph.subgraph(name='packages') as modules_graph:
-            modules_graph.node_attr.update(style='filled', color='yellowgreen')
-            for i in edges:
-                modules_graph.edge(i[1][0], i[1][1], label=str(i[0]))
-
-        with graph.subgraph(name='files') as files_graph:
-            files_graph.node_attr.update(style='filled', color='mistyrose')
-            for i in file_names:
-                tmp = i.split(" ")
-                names.append(tmp[0])
-                sizes.append(tmp[1])
-
-            for file, size in zip(names, sizes):
-                files_graph.node(file, **{'width': str(float(size) / 15000), 'height': str(float(size) / 15000)})
-                dependencies, counter = FilesDependencies.find_files_dependencies(file, path, names)
-                for dependent_file in dependencies:
-                    files_graph.edge(file, dependent_file, *{str(counter)})
-        try:
-            graph.view(tempfile.mktemp('.filesModulesGraph'))
+            graph.view(tempfile.mktemp('.filesMethodsDefinitionsGraph'))
         except Exception:
             from gui.Window import Window
             Window.show_error(Window)
