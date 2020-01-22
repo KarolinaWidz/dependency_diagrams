@@ -6,8 +6,8 @@ from dependencyFinders.FilesWithDefinitionsDependencies import FilesWithDefiniti
 from dependencyFinders.ModuleDependencies import ModuleDependencies
 from dependencyFinders.MethodsDependencies import MethodsDependencies
 from Color import Color
-from CyclomaticComplexity import FunctionsCC
-from HashCommit import HashCommit
+from functionalities.CyclomaticComplexity import FunctionsCC
+from functionalities.HashCommit import HashCommit
 
 
 class Graph:
@@ -72,7 +72,7 @@ class Graph:
             from gui.Window import Window
             Window.show_error(Window)
 
-    def files_with_definitons_dependencies(self, path):
+    def files_with_definitions_dependencies(self, path):
         file_names = FilesDependencies.find_files_in_directory(self, path)
         names = []
         sizes = []
@@ -91,7 +91,7 @@ class Graph:
                                 'color': color.__str__()})
             for i in same_function_dependencies[file]:
                 graph.edge(i, file)
-            color.h += 0.1
+            color.h += 0.05
         try:
             graph.view(tempfile.mktemp('.filesMethodsGraph'))
         except Exception:

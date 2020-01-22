@@ -43,7 +43,7 @@ class Window:
 
     def show_files_method_dependencies(self):
         tmp = Graph()
-        tmp.files_with_definitons_dependencies(self.path)
+        tmp.files_with_definitions_dependencies(self.path)
 
     def show(self):
         tmp = Graph()
