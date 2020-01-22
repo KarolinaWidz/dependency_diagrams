@@ -1,5 +1,4 @@
 import os
-import re
 from dependencyFinders.FilesWithDefinitionsDependencies import FilesWithDefinitionsDependencies
 
 
@@ -28,7 +27,7 @@ class FilesDependencies:
                     if line.startswith("from"):
                         file_names.append(line)
         else:
-            cur_file = FilesWithDefinitionsDependencies.open_files_from_directory(self, file_path, self)
+            cur_file = FilesWithDefinitionsDependencies.find_dir_with_file(self, file_path, self)
             with open(cur_file) as file:
                 for line in file:
                     if line.startswith("from"):

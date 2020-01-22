@@ -86,7 +86,7 @@ class Graph:
             sizes.append(tmp[1])
 
         for file, size in zip(names, sizes):
-            same_function_dependencies = FilesWithDefinitionsDependencies.methods_in_file(self, path, file)[0]
+            same_function_dependencies = FilesWithDefinitionsDependencies.methods_in_file(self, path, file)
             graph.node(file, **{'width': str(float(size) / 15000), 'height': str(float(size) / 15000),
                                 'color': color.__str__()})
             for i in same_function_dependencies[file]:

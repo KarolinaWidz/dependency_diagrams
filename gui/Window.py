@@ -1,9 +1,9 @@
 from tkinter import *
 from tkinter.filedialog import askdirectory
 from tkinter.messagebox import showerror
-
 from Graph import Graph
 from Consolidation import Consolidation
+
 
 class Window:
 
@@ -48,46 +48,59 @@ class Window:
     def show(self):
         tmp = Graph()
         consolidation = Consolidation()
-        if (self.selected1.get() == 1) & (self.selected2.get() == 0) & (self.selected3.get() == 0) & (self.selected5.get() == 0):
+        if (self.selected1.get() == 1) & (self.selected2.get() == 0) & (self.selected3.get() == 0) & (
+                self.selected5.get() == 0):
             print("Files")
             tmp.files_dependency(self.path)
-        elif (self.selected1.get() == 1) & (self.selected2.get() == 1) & (self.selected3.get() == 0) & (self.selected5.get() == 0) :
+        elif (self.selected1.get() == 1) & (self.selected2.get() == 1) & (self.selected3.get() == 0) & (
+                self.selected5.get() == 0):
             print("Files + methods")
             consolidation.files_with_methods(self.path)
-        elif (self.selected1.get() == 1) & (self.selected2.get() == 1) & (self.selected3.get() == 1) & (self.selected5.get() == 0):
+        elif (self.selected1.get() == 1) & (self.selected2.get() == 1) & (self.selected3.get() == 1) & (
+                self.selected5.get() == 0):
             print("Files + methods + packages")
             consolidation.files_with_modules_with_methods(self.path)
-        elif (self.selected1.get() == 0) & (self.selected2.get() == 1) & (self.selected3.get() == 1) & (self.selected5.get() == 0):
+        elif (self.selected1.get() == 0) & (self.selected2.get() == 1) & (self.selected3.get() == 1) & (
+                self.selected5.get() == 0):
             print("Methods + packages")
             consolidation.modules_with_methods(self.path)
-        elif (self.selected1.get() == 1) & (self.selected2.get() == 0) & (self.selected3.get() == 1) & (self.selected5.get() == 0):
+        elif (self.selected1.get() == 1) & (self.selected2.get() == 0) & (self.selected3.get() == 1) & (
+                self.selected5.get() == 0):
             print("Files + packages")
             consolidation.files_with_modules(self.path)
-        elif (self.selected1.get() == 0) & (self.selected2.get() == 1) & (self.selected3.get() == 0) & (self.selected5.get() == 0):
+        elif (self.selected1.get() == 0) & (self.selected2.get() == 1) & (self.selected3.get() == 0) & (
+                self.selected5.get() == 0):
             print("Methods")
             tmp.methods_dependencies(self.path)
-        elif (self.selected1.get() == 0) & (self.selected2.get() == 0) & (self.selected3.get() == 1) & (self.selected5.get() == 0):
+        elif (self.selected1.get() == 0) & (self.selected2.get() == 0) & (self.selected3.get() == 1) & (
+                self.selected5.get() == 0):
             print("Packages")
             tmp.module_dependency(self.path)
-        elif (self.selected1.get() == 1) & (self.selected2.get() == 0) & (self.selected3.get() == 0) & (self.selected5.get() == 1):
+        elif (self.selected1.get() == 1) & (self.selected2.get() == 0) & (self.selected3.get() == 0) & (
+                self.selected5.get() == 1):
             print("Files  with cyclomatic")
             tmp.files_dependency(self.path)
-        elif (self.selected1.get() == 1) & (self.selected2.get() == 1) & (self.selected3.get() == 0) & (self.selected5.get() == 1) :
+        elif (self.selected1.get() == 1) & (self.selected2.get() == 1) & (self.selected3.get() == 0) & (
+                self.selected5.get() == 1):
             print("Files + methods with cyclomatic")
             consolidation.files_with_methods(self.path)
-        elif (self.selected1.get() == 1) & (self.selected2.get() == 1) & (self.selected3.get() == 1) & (self.selected5.get() == 1):
+        elif (self.selected1.get() == 1) & (self.selected2.get() == 1) & (self.selected3.get() == 1) & (
+                self.selected5.get() == 1):
             print("Files + methods + packages with cyclomatic")
             consolidation.files_with_modules_with_methods(self.path)
-        elif (self.selected1.get() == 0) & (self.selected2.get() == 1) & (self.selected3.get() == 1) & (self.selected5.get() == 1):
+        elif (self.selected1.get() == 0) & (self.selected2.get() == 1) & (self.selected3.get() == 1) & (
+                self.selected5.get() == 1):
             print("Methods + packages with cyclomatic")
             consolidation.modules_with_methods(self.path)
-        elif (self.selected1.get() == 1) & (self.selected2.get() == 0) & (self.selected3.get() == 1) & (self.selected5.get() == 1):
+        elif (self.selected1.get() == 1) & (self.selected2.get() == 0) & (self.selected3.get() == 1) & (
+                self.selected5.get() == 1):
             print("Files + packages with cyclomatic")
             consolidation.files_with_modules(self.path)
-        elif (self.selected1.get() == 0) & (self.selected2.get() == 1) & (self.selected3.get() == 0) & (self.selected5.get() == 1):
+        elif (self.selected1.get() == 0) & (self.selected2.get() == 1) & (self.selected3.get() == 0) & (
+                self.selected5.get() == 1):
             print("Methods with cyclomatic")
             tmp.methods_dependencies(self.path)
-        elif (self.selected1.get() == 0) & (self.selected2.get() == 0) & (self.selected3.get() == 1) & (self.selected5.get() == 1):
+        elif (self.selected1.get() == 0) & (self.selected2.get() == 0) & (self.selected3.get() == 1) & (
+                self.selected5.get() == 1):
             print("Packages with cyclomatic")
             tmp.module_dependency_with_cc(self.path)
-

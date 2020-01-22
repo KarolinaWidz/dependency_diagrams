@@ -8,12 +8,12 @@ class FilesWithDefinitionsDependencies:
         with open(cur_path) as file:
             for line in file:
                 line = line.strip()
-                if line.startswith("def"):
+                if line.startswith("def "):
                     line = line.split(' ')[1].split("(")[0]
                     tmp.append(line)
         return tmp
 
-    def open_files_from_directory(self, file_path, file_name):
+    def find_dir_with_file(self, file_path, file_name):
         cur_file = ''
         for root, dirs, files in os.walk(file_path, topdown=True):
             cur_dir = os.path.join(root)
@@ -29,23 +29,18 @@ class FilesWithDefinitionsDependencies:
 
     def methods_in_file(self, file_path, file_name):
         tmp = []
-        all_methods = []
         cur_path = file_path + "/" + file_name
         if os.path.isfile(cur_path):
             tmp = FilesWithDefinitionsDependencies.open_file(self, file_path, file_name)
-            for i in tmp:
-                all_methods.append(i)
+
         else:
-            cur_file = FilesWithDefinitionsDependencies.open_files_from_directory(self, file_path, file_name)
+            cur_file = FilesWithDefinitionsDependencies.find_dir_with_file(self, file_path, file_name)
             with open(cur_file) as file:
                 for line in file:
                     line = line.strip()
                     if line.startswith("def "):
-                        line= line.split(' ')[1].split("(")[0]
+                        line = line.split(' ')[1].split("(")[0]
                         tmp.append(line)
-                        all_methods.append(line)
 
         names = {file_name: tmp}
-        return names, all_methods
-
-
+        return names
