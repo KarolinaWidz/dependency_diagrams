@@ -74,7 +74,7 @@ class Graph:
         edges = ModuleDependencies().get_relation_names(path)
         graph = Digraph('filesModulesGraph', format='pdf', filename='filesModulesGraph',
                         node_attr={'style': 'filled', 'shape': 'circle'})
-        graph.attr(size='50', labelloc = 'b', label = 'Commit hash: \n' + HashCommit().get_commit_hash(path)) #//////////////////////////////
+        graph.attr(size='50', labelloc = 'b', label = 'Commit hash: \n' + HashCommit().get_commit_hash(path))
 
         with graph.subgraph(name='packages') as modules_graph:
             modules_graph.node_attr.update(style='filled', color='yellowgreen')
@@ -103,7 +103,7 @@ class Graph:
         file_names = FilesDependencies.find_files_in_directory(self, path)
         names = []
         sizes = []
-        graph = Digraph('filesMethodsGraph', format='pdf', filename='filesMethodsGraph',
+        graph = Digraph('filesMethodsGraph',strict=True, format='pdf', filename='filesMethodsGraph',
                         node_attr={'color': 'khaki', 'style': 'filled', 'shape': 'doublecircle'})
         graph.attr(size='50', labelloc='b', label='Commit hash: \n' + HashCommit.get_commit_hash(path))
         color = Color()
@@ -112,16 +112,11 @@ class Graph:
             names.append(tmp[0])
             sizes.append(tmp[1])
 
-        methods = FilesMethodsDependencies.get_all_methods(self, path, names)
-
         for file, size in zip(names, sizes):
             same_function_dependencies = FilesMethodsDependencies.methods_in_file(self, path, file)[0]
-            different_function_dependencies = FilesMethodsDependencies.find_dependencies(self, path, file, methods)
             graph.node(file, **{'width': str(float(size) / 15000), 'height': str(float(size) / 15000),
                                 'color': color.__str__()})
             for i in same_function_dependencies[file]:
-                graph.edge(file, i)
-            for i in different_function_dependencies:
                 graph.edge(i, file)
             color.h += 0.1
         try:
