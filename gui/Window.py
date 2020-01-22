@@ -49,6 +49,7 @@ class Window:
         tmp = Graph()
         consolidation = Consolidation()
         if (self.selected1.get() == 1) & (self.selected2.get() == 0) & (self.selected3.get() == 0) & (self.selected5.get() == 0):
+            print("Files")
             tmp.files_dependency(self.path)
         elif (self.selected1.get() == 1) & (self.selected2.get() == 1) & (self.selected3.get() == 0) & (self.selected5.get() == 0) :
             print("Files + methods")
@@ -63,26 +64,30 @@ class Window:
             print("Files + packages")
             consolidation.files_with_modules(self.path)
         elif (self.selected1.get() == 0) & (self.selected2.get() == 1) & (self.selected3.get() == 0) & (self.selected5.get() == 0):
-            tmp.methods_dependencies(self.path)
             print("Methods")
+            tmp.methods_dependencies(self.path)
         elif (self.selected1.get() == 0) & (self.selected2.get() == 0) & (self.selected3.get() == 1) & (self.selected5.get() == 0):
-            tmp.module_dependency(self.path)
             print("Packages")
+            tmp.module_dependency(self.path)
         elif (self.selected1.get() == 1) & (self.selected2.get() == 0) & (self.selected3.get() == 0) & (self.selected5.get() == 1):
+            print("Files  with cyclomatic")
             tmp.files_dependency(self.path)
         elif (self.selected1.get() == 1) & (self.selected2.get() == 1) & (self.selected3.get() == 0) & (self.selected5.get() == 1) :
             print("Files + methods with cyclomatic")
+            consolidation.files_with_methods(self.path)
         elif (self.selected1.get() == 1) & (self.selected2.get() == 1) & (self.selected3.get() == 1) & (self.selected5.get() == 1):
             print("Files + methods + packages with cyclomatic")
-            tmp.files_with_modules_with_methods(self.path)
+            consolidation.files_with_modules_with_methods(self.path)
         elif (self.selected1.get() == 0) & (self.selected2.get() == 1) & (self.selected3.get() == 1) & (self.selected5.get() == 1):
             print("Methods + packages with cyclomatic")
+            consolidation.modules_with_methods(self.path)
         elif (self.selected1.get() == 1) & (self.selected2.get() == 0) & (self.selected3.get() == 1) & (self.selected5.get() == 1):
             print("Files + packages with cyclomatic")
-            tmp.files_with_modules(self.path)
+            consolidation.files_with_modules(self.path)
         elif (self.selected1.get() == 0) & (self.selected2.get() == 1) & (self.selected3.get() == 0) & (self.selected5.get() == 1):
             print("Methods with cyclomatic")
+            tmp.methods_dependencies(self.path)
         elif (self.selected1.get() == 0) & (self.selected2.get() == 0) & (self.selected3.get() == 1) & (self.selected5.get() == 1):
-            tmp.module_dependency_with_cc(self.path)
             print("Packages with cyclomatic")
+            tmp.module_dependency_with_cc(self.path)
 
