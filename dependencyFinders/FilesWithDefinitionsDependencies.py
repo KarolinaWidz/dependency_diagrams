@@ -9,6 +9,7 @@ class FilesWithDefinitionsDependencies:
             for line in file:
                 line = line.strip()
                 if line.startswith("def"):
+                    line = line.split(' ')[1].split("(")[0]
                     tmp.append(line)
         return tmp
 
@@ -40,6 +41,7 @@ class FilesWithDefinitionsDependencies:
                 for line in file:
                     line = line.strip()
                     if line.startswith("def "):
+                        line= line.split(' ')[1].split("(")[0]
                         tmp.append(line)
                         all_methods.append(line)
 
