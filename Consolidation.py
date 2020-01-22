@@ -61,7 +61,7 @@ class Consolidation:
                 graph.node(name)
             for edge in function_connections:
                 for x in edge:
-                    method_graph.edge(x[0], x[1], label=str(x[2]))
+                    method_graph.edge(x[1], x[0], label=str(x[2]))
 
         with graph.subgraph(name='files') as files_graph:
             files_graph.node_attr.update(style='filled', color='mistyrose')
@@ -100,7 +100,7 @@ class Consolidation:
                 graph.node(name)
             for edge in function_connections:
                 for x in edge:
-                    method_graph.edge(x[0], x[1], label=str(x[2]))
+                    method_graph.edge(x[1], x[0], label=str(x[2]))
 
         with graph.subgraph(name='modules') as modules_graph:
             modules_graph.node_attr.update(style='filled', color='yellowgreen')
@@ -134,7 +134,7 @@ class Consolidation:
                 graph.node(name)
             for edge in function_connections:
                 for x in edge:
-                    method_graph.edge(x[0], x[1], label=str(x[2]))
+                    method_graph.edge(x[1], x[0], label=str(x[2]))
 
         with graph.subgraph(name='modules') as modules_graph:
             modules_graph.node_attr.update(style='filled', color='yellowgreen')
