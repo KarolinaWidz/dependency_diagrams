@@ -40,6 +40,7 @@ class Graph:
 
         function_connections = []
         function_connections_tmp = MethodsDependencies().methods_dependency(path)
+        function_names = MethodsDependencies().methods_list_from_directory(path)
 
         for element in function_connections_tmp:
             if element != []:
@@ -48,10 +49,12 @@ class Graph:
         graph = Digraph('methodGraph', format='pdf', filename='methodGraph',
                         node_attr={'color': 'skyblue', 'style': 'filled', 'shape': 'doublecircle'})
         graph.attr(size='6,6', labelloc='b', label='Version: \n' + HashCommit.get_commit_hash(path))
+        for name in function_names:
+            graph.node(name)
 
         for edge in function_connections:
             for x in edge:
-                graph.edge(x[0], x[1], label=str(x[2]))
+                graph.edge(x[1], x[0], label=str(x[2]))
 
         try:
             graph.view(tempfile.mktemp('.moduleGraph'))
@@ -86,7 +89,7 @@ class Graph:
             sizes.append(tmp[1])
 
         for file, size in zip(names, sizes):
-            same_function_dependencies = FilesWithDefinitionsDependencies.methods_in_file(self, path, file)[0]
+            same_function_dependencies = FilesWithDefinitionsDependencies.methods_in_file(self, path, file)
             graph.node(file, **{'width': str(float(size) / 15000), 'height': str(float(size) / 15000),
                                 'color': color.__str__()})
             for i in same_function_dependencies[file]:

@@ -8,7 +8,6 @@ from functionalities.HashCommit import HashCommit
 
 class Consolidation:
 
-    #CONSOLIDATION
     def files_with_modules(self, path):
         file_names = FilesDependencies.find_files_in_directory(self, path)
         names = []
@@ -47,19 +46,22 @@ class Consolidation:
         sizes = []
         function_connections = []
         function_connections_tmp = MethodsDependencies().methods_dependency(path)
+        function_names = MethodsDependencies().methods_list_from_directory(path)
 
         for element in function_connections_tmp:
             if element != []:
                 function_connections.append(element)
         graph = Digraph('filesMethodGraph', format='pdf', filename='filesMethodGraph',
-                        node_attr={'style': 'filled', 'shape': 'circle'})
+                        node_attr={'style': 'filled', 'shape': 'circle', 'color':'skyblue'})
         graph.attr(size='50', labelloc='b', label='Version: \n' + HashCommit.get_commit_hash(path))
 
         with graph.subgraph(name='methods') as method_graph:
             method_graph.node_attr.update(style='filled', color='skyblue')
+            for name in function_names:
+                graph.node(name)
             for edge in function_connections:
                 for x in edge:
-                    method_graph.edge(x[0], x[1], label=str(x[2]))
+                    method_graph.edge(x[1], x[0], label=str(x[2]))
 
         with graph.subgraph(name='files') as files_graph:
             files_graph.node_attr.update(style='filled', color='mistyrose')
@@ -83,18 +85,22 @@ class Consolidation:
         function_connections = []
         function_connections_tmp = MethodsDependencies().methods_dependency(path)
         edges = ModuleDependencies().get_relation_names(path)
+        function_names = MethodsDependencies().methods_list_from_directory(path)
+
         for element in function_connections_tmp:
             if element != []:
                 function_connections.append(element)
         graph = Digraph('modulesMethodGraph', format='pdf', filename='modulesMethodGraph',
-                        node_attr={'style': 'filled', 'shape': 'circle'})
+                        node_attr={'style': 'filled', 'shape': 'circle', 'color':'skyblue'})
         graph.attr(size='50', labelloc='b', label='Version: \n' + HashCommit.get_commit_hash(path))
 
         with graph.subgraph(name='methods') as method_graph:
             method_graph.node_attr.update(style='filled', color='skyblue')
+            for name in function_names:
+                graph.node(name)
             for edge in function_connections:
                 for x in edge:
-                    method_graph.edge(x[0], x[1], label=str(x[2]))
+                    method_graph.edge(x[1], x[0], label=str(x[2]))
 
         with graph.subgraph(name='modules') as modules_graph:
             modules_graph.node_attr.update(style='filled', color='yellowgreen')
@@ -113,18 +119,22 @@ class Consolidation:
         function_connections = []
         function_connections_tmp = MethodsDependencies().methods_dependency(path)
         edges = ModuleDependencies().get_relation_names(path)
+        function_names = MethodsDependencies().methods_list_from_directory(path)
+
         for element in function_connections_tmp:
             if element != []:
                 function_connections.append(element)
         graph = Digraph('modulesMethodFilesGraph', format='pdf', filename='modulesMethodFilesGraph',
-                        node_attr={'style': 'filled', 'shape': 'circle'})
+                        node_attr={'style': 'filled', 'shape': 'circle', 'color':'skyblue'})
         graph.attr(size='50', labelloc='b', label='Version: \n' + HashCommit.get_commit_hash(path))
 
         with graph.subgraph(name='methods') as method_graph:
             method_graph.node_attr.update(style='filled', color='skyblue')
+            for name in function_names:
+                graph.node(name)
             for edge in function_connections:
                 for x in edge:
-                    method_graph.edge(x[0], x[1], label=str(x[2]))
+                    method_graph.edge(x[1], x[0], label=str(x[2]))
 
         with graph.subgraph(name='modules') as modules_graph:
             modules_graph.node_attr.update(style='filled', color='yellowgreen')
