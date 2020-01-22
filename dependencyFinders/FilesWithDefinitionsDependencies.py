@@ -48,37 +48,4 @@ class FilesWithDefinitionsDependencies:
         names = {file_name: tmp}
         return names, all_methods
 
-    def get_all_methods(self, file_path, files):
-        tmp = []
-        for file in files:
-            methods = FilesWithDefinitionsDependencies.methods_in_file(self, file_path, file)[1]
-            for i in methods:
-                tmp.append(i)
-        return tmp
 
-    def find_dependencies(self, file_path, file_arg, methods):
-        tmp = []
-        cur_path = file_path + "/" + file_arg
-        if os.path.isfile(cur_path):
-            with open(cur_path) as file:
-                for line in file:
-                    line = line.strip()
-                    if not line.startswith("def"):
-                        for met in methods:
-                            k = met.replace("def ", '')
-                            k = k.split("(")[0]
-                            if k + "(" in line:
-                                tmp.append(met)
-        else:
-            cur_file = FilesWithDefinitionsDependencies.open_files_from_directory(self, file_path, file_arg)
-            with open(cur_file) as file:
-                for line in file:
-                    line = line.strip()
-                    if not line.startswith("def"):
-                        for met in methods:
-                            k = met.replace("def ", '')
-                            k = k.split("(")[0]
-                            if k + "(" in line:
-                                tmp.append(met)
-
-        return tmp
