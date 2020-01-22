@@ -9,7 +9,6 @@ class HashCommit:
         except:
             return "unknown"
 
-        if not repo.bare:
-            commit_hash = list(repo.iter_commits('master'))[0].hexsha
-            return commit_hash
+        commit_hash = list(repo.iter_commits('master'))[0].hexsha
+        return commit_hash
 
