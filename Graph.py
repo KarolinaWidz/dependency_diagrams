@@ -54,7 +54,7 @@ class Graph:
 
         for edge in function_connections:
             for x in edge:
-                graph.edge(x[0], x[1], label=str(x[2]))
+                graph.edge(x[1], x[0], label=str(x[2]))
 
         try:
             graph.view(tempfile.mktemp('.moduleGraph'))
