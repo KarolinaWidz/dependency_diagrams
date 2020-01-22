@@ -19,11 +19,13 @@ class MethodsDependencies:
         # ścieżki plików .py które trzeba przeszukać
 
         for py_file_path in all_py_files_paths:
-            with open(py_file_path) as file:
-                for line in file:
-                    line = line.strip()
-                    if line.startswith("def "):
-                        df_lines.append(line)
+            if ("venv" not in py_file_path) and ("__pycache__" not in py_file_path) and (
+                    ".git" not in py_file_path) and (".idea" not in py_file_path):
+                with open(py_file_path) as file:
+                    for line in file:
+                        line = line.strip()
+                        if line.startswith("def "):
+                            df_lines.append(line)
 
         # print(df_lines)
         # całe linie które zaczynają sie na "def"
@@ -63,29 +65,30 @@ class MethodsDependencies:
 
                 # każda funkcja zdefiniowana w tym w pliku ma swój licznik
                 counter = [0] * len(names_of_function_in_file_splitted)
-
-                with open(file_path) as file:
-                    if (function + "(") not in file.read():
-                        continue
-                    file.seek(0)
-                    is_line_of_function = False
-
-                    for line in file:
-
-                        if line is '\n':  # skips blank lines
+                if ("venv" not in file_path) and ("__pycache__" not in file_path) and (
+                        ".git" not in file_path) and (".idea" not in file_path):
+                    with open(file_path) as file:
+                        if (function + "(") not in file.read():
                             continue
+                        file.seek(0)
+                        is_line_of_function = False
 
-                        if 'def' + ' ' not in line:
-                            if is_line_of_function:
-                                if not line.startswith(' ') and not line.startswith('\t'):
-                                    is_line_of_function = False
-                                    continue
-                            counter[i] += line.count(function + "(")
-                    else:
-                        if is_line_of_function is True:
-                            i += 1
+                        for line in file:
+
+                            if line is '\n':  # skips blank lines
+                                continue
+
+                            if 'def' + ' ' not in line:
+                                if is_line_of_function:
+                                    if not line.startswith(' ') and not line.startswith('\t'):
+                                        is_line_of_function = False
+                                        continue
+                                counter[i] += line.count(function + "(")
                         else:
-                            is_line_of_function = True
+                            if is_line_of_function is True:
+                                i += 1
+                            else:
+                                is_line_of_function = True
 
                 for actual_function, actual_counter in zip(names_of_function_in_file_splitted, counter):
                     if actual_counter != 0:
@@ -98,12 +101,14 @@ class MethodsDependencies:
 
     def open_clear_find(self, name, word):
         names = []
+        if ("venv" not in name) and ("__pycache__" not in name) and (
+                ".git" not in name) and (".idea" not in name):
+            with open(name) as file:
 
-        with open(name) as file:
-            for line in file:
-                line = line.strip()
-                if line.startswith(word):
-                    names.append(line)
+                for line in file:
+                    line = line.strip()
+                    if line.startswith(word):
+                        names.append(line)
         return names
 
     # MAIN
@@ -117,7 +122,6 @@ class MethodsDependencies:
             functions_connections.append(self.get_list_of_dependecies_from_file(file_path, functions_list))
 
         return functions_connections
-
 
 # path = "C:/Users/Kuba/Desktop/GitHub/dependency_diagrams"
 # test1 = MethodsDependencies()
