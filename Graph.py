@@ -18,7 +18,7 @@ class Graph:
         sizes = []
         graph = Digraph('filesGraph', format='pdf', filename='filesGraph',
                         node_attr={'color': 'mistyrose', 'style': 'filled', 'shape': 'circle'})
-        graph.attr(size='50', labelloc='b', label='Commit hash: \n' + HashCommit.get_commit_hash(path))
+        graph.attr(size='50', labelloc='b', label='Version: \n' + HashCommit.get_commit_hash(path))
 
         for i in file_names:
             tmp = i.split(" ")
@@ -47,7 +47,7 @@ class Graph:
 
         graph = Digraph('methodGraph', format='pdf', filename='methodGraph',
                         node_attr={'color': 'skyblue', 'style': 'filled', 'shape': 'doublecircle'})
-        graph.attr(size='6,6')
+        graph.attr(size='6,6', labelloc='b', label='Version: \n' + HashCommit.get_commit_hash(path))
 
         for edge in function_connections:
             for x in edge:
@@ -63,7 +63,7 @@ class Graph:
         edges = ModuleDependencies().get_relation_names(path)
         graph = Digraph('moduleGraph', format='pdf', filename='moduleGraph',
                         node_attr={'color': 'yellowgreen', 'style': 'filled', 'shape': 'doublecircle'})
-        graph.attr(size='50', labelloc='b', label='Commit hash: \n' + HashCommit.get_commit_hash(path))
+        graph.attr(size='50', labelloc='b', label='Version: \n' + HashCommit.get_commit_hash(path))
         for i in edges:
             graph.edge(i[1][0], i[1][1], label=str(i[0]))
         try:
@@ -78,7 +78,7 @@ class Graph:
         sizes = []
         graph = Digraph('filesMethodsGraph', strict=True, format='pdf', filename='filesMethodsGraph',
                         node_attr={'color': 'khaki', 'style': 'filled', 'shape': 'doublecircle'})
-        graph.attr(size='50', labelloc='b', label='Commit hash: \n' + HashCommit.get_commit_hash(path))
+        graph.attr(size='50', labelloc='b', label='Version: \n' + HashCommit.get_commit_hash(path))
         color = Color()
         for i in file_names:
             tmp = i.split(" ")
@@ -106,7 +106,7 @@ class Graph:
         edges = ModuleDependencies().get_relation_names(path)
         graph = Digraph('filesModulesGraph', format='pdf', filename='filesModulesGraph',
                         node_attr={'style': 'filled', 'shape': 'circle'})
-        graph.attr(size='50', labelloc='b', label='Commit hash: \n' + HashCommit.get_commit_hash(path))
+        graph.attr(size='50', labelloc='b', label='Version: \n' + HashCommit.get_commit_hash(path))
 
         with graph.subgraph(name='packages') as modules_graph:
             modules_graph.node_attr.update(style='filled', color='yellowgreen')
@@ -138,7 +138,7 @@ class Graph:
         edges = ModuleDependencies().get_relation_names(path)
         graph = Digraph('filesModulesGraph', format='pdf', filename='filesModulesGraph',
                         node_attr={'style': 'filled', 'shape': 'circle'})
-        graph.attr(size='50', labelloc = 'b', label = 'Commit hash: \n' + HashCommit().get_commit_hash(path))
+        graph.attr(size='50', labelloc = 'b', label = 'Version: \n' + HashCommit().get_commit_hash(path))
 
         with graph.subgraph(name='packages') as modules_graph:
             modules_graph.node_attr.update(style='filled', color='yellowgreen')
@@ -168,6 +168,7 @@ class Graph:
         edges = ModuleDependencies().get_relation_names(path)
         graph = Digraph('moduleGraph', format='pdf', filename='moduleGraph',
                         node_attr={'color': 'yellowgreen', 'style': 'filled', 'shape': 'doublecircle'})
+        graph.attr(size='50', labelloc = 'b', label = 'Version: \n' + HashCommit.get_commit_hash(path))
 
         cc = FunctionsCC().get_all_functions_cc(path)
 
