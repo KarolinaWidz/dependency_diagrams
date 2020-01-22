@@ -145,3 +145,4 @@ class Graph:
         except Exception:
             from gui.Window import Window
             Window.show_error(Window)
+
