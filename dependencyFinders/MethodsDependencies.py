@@ -1,11 +1,9 @@
 import glob
-import inspect
 import os
-import re
 
 # Historyjka 2: Jako programista chcę zobaczyć graf relacji między funkcjami/metodami w podanym kodzie źródłowym,
 # w celu analizy zależności w kodzie źródłowym.
-import textwrap
+
 
 
 class MethodsDependencies:
