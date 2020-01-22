@@ -132,6 +132,19 @@ class Graph:
         edges = ModuleDependencies().get_relation_names(path)
         graph = Digraph('moduleGraph', format='pdf', filename='moduleGraph',
                         node_attr={'color': 'yellowgreen', 'style': 'filled', 'shape': 'doublecircle'})
+        for i in edges:
+            graph.edge(i[1][0], i[1][1], label=str(i[0]))
+        try:
+            graph.view(tempfile.mktemp('.moduleGraph'))
+        except Exception:
+            from gui.Window import Window
+            Window.show_error(Window)
+
+
+    def module_dependency_with_cc(self, path='.'):
+        edges = ModuleDependencies().get_relation_names(path)
+        graph = Digraph('moduleGraph', format='pdf', filename='moduleGraph',
+                        node_attr={'color': 'yellowgreen', 'style': 'filled', 'shape': 'doublecircle'})
 
         cc = FunctionsCC().get_all_functions_cc(path)
 
@@ -145,4 +158,3 @@ class Graph:
         except Exception:
             from gui.Window import Window
             Window.show_error(Window)
-

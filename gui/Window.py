@@ -79,6 +79,6 @@ class Window:
         elif (self.selected1.get() == 0) & (self.selected2.get() == 1) & (self.selected3.get() == 0) & (self.selected5.get() == 1):
             print("Methods with cyclomatic")
         elif (self.selected1.get() == 0) & (self.selected2.get() == 0) & (self.selected3.get() == 1) & (self.selected5.get() == 1):
-            tmp.module_dependency(self.path)
+            tmp.module_dependency_with_cc(self.path)
             print("Packages with cyclomatic")
 
