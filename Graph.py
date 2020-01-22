@@ -4,6 +4,7 @@ from graphviz import Digraph
 from dependencyFinders.FilesDependencies import FilesDependencies
 from dependencyFinders.FilesMethodsDependencies import FilesMethodsDependencies
 from dependencyFinders.ModuleDependencies import ModuleDependencies
+from dependencyFinders.MethodsDependencies import MethodsDependencies
 from Color import Color
 from CyclomaticComplexity import FunctionsCC
 from HashCommit import HashCommit
@@ -155,6 +156,30 @@ class Graph:
                 graph.edge(i[1][0] + '\ncc ' + cc[i[1][0]], i[1][1], label=str(i[0]))
             else:
                 graph.edge(i[1][0], i[1][1], label=str(i[0]))
+        try:
+            graph.view(tempfile.mktemp('.moduleGraph'))
+        except Exception:
+            from gui.Window import Window
+            Window.show_error(Window)
+
+
+    def methods_dependencies(self, path):
+
+        function_connections = []
+        function_connections_tmp = MethodsDependencies().methods_dependency(path)
+
+        for element in function_connections_tmp:
+            if element != []:
+                function_connections.append(element)
+
+        graph = Digraph('methodGraph', format='pdf', filename='methodGraph',
+                        node_attr={'color': 'skyblue', 'style': 'filled', 'shape': 'doublecircle'})
+        graph.attr(size='6,6')
+
+        for edge in function_connections:
+            for x in edge:
+                graph.edge(x[0], x[1], label=str(x[2]))
+
         try:
             graph.view(tempfile.mktemp('.moduleGraph'))
         except Exception:

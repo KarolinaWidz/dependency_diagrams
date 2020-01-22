@@ -60,6 +60,7 @@ class Window:
             print("Files + packages")
             tmp.files_with_modules(self.path)
         elif (self.selected1.get() == 0) & (self.selected2.get() == 1) & (self.selected3.get() == 0) & (self.selected5.get() == 0):
+            tmp.methods_dependencies(self.path)
             print("Methods")
         elif (self.selected1.get() == 0) & (self.selected2.get() == 0) & (self.selected3.get() == 1) & (self.selected5.get() == 0):
             tmp.module_dependency(self.path)
