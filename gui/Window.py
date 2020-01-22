@@ -12,7 +12,7 @@ class Window:
         self.window.title("Dependency diagrams")
         self.window.attributes('-topmost', True)
         self.window.update()
-        self.window.geometry('800x25')
+        self.window.geometry('770x25')
         self.path = askdirectory(initialdir="..")
         self.selected1 = IntVar()
         self.selected2 = IntVar()
