@@ -7,7 +7,6 @@ class FunctionsCC:
     def get_file_cc(self, path_to_file):
         stream = os.popen('radon cc ' + path_to_file)
         output = stream.read()
-
         list_of_funtion_cc = []
         for l in output.splitlines():
             if ':' in l:
@@ -26,7 +25,6 @@ class FunctionsCC:
                 function_cc += self.get_file_cc(file)
 
         files = [f for f in os.listdir(path) if os.path.isfile(f) if f[-3:] == '.py']
-        print(files)
         for file_name in files:
             function_cc += self.get_file_cc(file_name)
         return dict(function_cc)

@@ -23,18 +23,18 @@ class ModuleDependencies:
             current_filenames_in_directory_list = ModuleDependencies().get_current_filenames_in_directory(dir_name)
             for current_file in current_filenames_in_directory_list:    # iteruje po plikach w folderze
                 if os.path.isfile(current_file):
-                    with open(current_file) as file:
+                    with open(current_file,errors = 'ignore') as file:
                         for line in file:
                             line = line.strip()
                             if line.startswith("from "):
                                 file_package = line.split(' ')[1].split('.')[0]
-                                if file_package in list_nodes:
-                                    if file_package == dir_name:
+                                if path + '/' + file_package in list_nodes:
+                                    if file_package == dir_name.split('/')[-1]:
                                         continue
-                                    tmp.append(tuple((dir_name, file_package)))
+                                    tmp.append(tuple((dir_name.split('/')[-1], file_package)))
                                 else:
                                     continue
-                            #
+
                             elif line.startswith('def'):
                                 if len(line.split(' ')) >= 2 and len(line.split(' ')[1].split('(')) >= 1 \
                                                              and len(dir_name.split('/')) >= 1:

@@ -22,13 +22,13 @@ class FilesDependencies:
         file_dependencies = []
         cur_path = file_path+"/"+self
         if os.path.isfile(cur_path):
-            with open(cur_path) as file:
+            with open(cur_path,errors = 'ignore') as file:
                 for line in file:
                     if line.startswith("from"):
                         file_names.append(line)
         else:
             cur_file = FilesWithDefinitionsDependencies.find_dir_with_file(self, file_path, self)
-            with open(cur_file) as file:
+            with open(cur_file,errors = 'ignore') as file:
                 for line in file:
                     if line.startswith("from"):
                         file_names.append(line)
