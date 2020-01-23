@@ -5,7 +5,7 @@ class FilesWithDefinitionsDependencies:
     def open_file(self, file_path, file_name):
         tmp = []
         cur_path = file_path + "/" + file_name
-        with open(cur_path) as file:
+        with open(cur_path,errors = 'ignore') as file:
             for line in file:
                 line = line.strip()
                 if line.startswith("def "):
@@ -35,7 +35,7 @@ class FilesWithDefinitionsDependencies:
 
         else:
             cur_file = FilesWithDefinitionsDependencies.find_dir_with_file(self, file_path, file_name)
-            with open(cur_file) as file:
+            with open(cur_file,errors = 'ignore') as file:
                 for line in file:
                     line = line.strip()
                     if line.startswith("def "):

@@ -23,7 +23,7 @@ class ModuleDependencies:
             current_filenames_in_directory_list = ModuleDependencies().get_current_filenames_in_directory(dir_name)
             for current_file in current_filenames_in_directory_list:    # iteruje po plikach w folderze
                 if os.path.isfile(current_file):
-                    with open(current_file) as file:
+                    with open(current_file,errors = 'ignore') as file:
                         for line in file:
                             line = line.strip()
                             if line.startswith("from "):

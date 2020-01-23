@@ -19,7 +19,7 @@ class MethodsDependencies:
         for py_file_path in all_py_files_paths:
             if ("venv" not in py_file_path) and ("__pycache__" not in py_file_path) and (
                     ".git" not in py_file_path) and (".idea" not in py_file_path):
-                with open(py_file_path) as file:
+                with open(py_file_path,errors = 'ignore') as file:
                     for line in file:
                         line = line.strip()
                         if line.startswith("def "):
@@ -65,7 +65,7 @@ class MethodsDependencies:
                 counter = [0] * len(names_of_function_in_file_splitted)
                 if ("venv" not in file_path) and ("__pycache__" not in file_path) and (
                         ".git" not in file_path) and (".idea" not in file_path):
-                    with open(file_path) as file:
+                    with open(file_path,errors = 'ignore') as file:
                         if (function + "(") not in file.read():
                             continue
                         file.seek(0)
@@ -101,7 +101,7 @@ class MethodsDependencies:
         names = []
         if ("venv" not in name) and ("__pycache__" not in name) and (
                 ".git" not in name) and (".idea" not in name):
-            with open(name) as file:
+            with open(name,errors = 'ignore') as file:
 
                 for line in file:
                     line = line.strip()
