@@ -11,6 +11,9 @@ Simple app to generate dependency diagrams for python code.
 - GitPython 3.0.5
 - Repo 0.1.0
 
+## Features
+Making diagram with dependencies between files, methods and packages.
+
 ## Installation
 - Clone this repo to your local machine
 - To run this project, open Main.py
